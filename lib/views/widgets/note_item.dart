@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/note_model.dart';
 
 import '../edit_note_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem.NoteItem({super.key});
+  const NoteItem({super.key, required this.note});
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditNoteView();
+          return const EditNoteView();
         }));
       },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Color(0xffFFCD7B),
+          color: Color(note.color),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
               title: Text(
-                'Flutter Tips',
-                style: TextStyle(color: Colors.black, fontSize: 26),
+                note.title,
+                style: const TextStyle(color: Colors.black, fontSize: 26),
               ),
               subtitle: Text(
-                'Build your first app with Flutter',
+                note.subTitle,
                 style: TextStyle(
                     color: Colors.black.withOpacity(0.4), fontSize: 20),
               ),
@@ -35,7 +37,7 @@ class NoteItem extends StatelessWidget {
                 onPressed: () {},
                 icon: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.delete,
                       color: Colors.black,
                     )),
@@ -44,7 +46,7 @@ class NoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 24.0, bottom: 24.0),
               child: Text(
-                'Mat 21 , 2022',
+                note.date,
                 style: TextStyle(color: Colors.black.withOpacity(0.4)),
               ),
             ),
